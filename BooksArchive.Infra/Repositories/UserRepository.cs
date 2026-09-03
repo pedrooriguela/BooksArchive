@@ -20,6 +20,35 @@ public class UserRepository : IUserRepository
         await _dbContext.AddAsync(user);
         await _dbContext.SaveChangesAsync();
     }
-        
+
+    public async Task<bool> UpdateAsync(Guid id, string name, string password)
+    {
+        var user = await GetByIdAsync(id);
+        if (user == null)
+            return false;
+
+        user.Name = name;
+        user.Password = password;
+        _dbContext.Update(user);
+        await _dbContext.SaveChangesAsync();
+        return true;
+    }
+
+    public async Task<bool> Delete(Guid id)
+    {
+        var user = GetByIdAsync(id);
+        if (user == null)
+            return false;
+
+        _dbContext.Remove(user);
+        await _dbContext.SaveChangesAsync();
+        return true;
+    }
+
+    public async Task<User?> GetByIdAsync(Guid id)
+    {
+        var user = await _dbContext.Users.FindAsync(id);
+        return user;
+    }
 
 }
