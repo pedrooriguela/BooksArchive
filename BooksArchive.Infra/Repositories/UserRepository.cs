@@ -50,5 +50,16 @@ public class UserRepository : IUserRepository
         var user = await _dbContext.Users.FindAsync(id);
         return user;
     }
+    
+    public User? GetByUsername(string username)
+    {
+        var user = _dbContext.Users.Where(p => p.Name == username).FirstOrDefault();
+        return user;
+    }
 
+    public User? GetByEmail(string email)
+    {
+        var user = _dbContext.Users.Where(p => p.Email == email).FirstOrDefault();
+        return user;
+    }
 }
