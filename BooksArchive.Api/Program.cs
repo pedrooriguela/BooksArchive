@@ -1,9 +1,8 @@
 using BooksArchive.Api.Infra.Database;
 using BooksArchive.Infra.Repositories;
-using BooksArchive.Infra.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using BooksArchive.Api.Interfaces;
-using BooksArchive.Api.Services;
+using BooksArchive.Domain.Services;
+using BooksArchive.Domain.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

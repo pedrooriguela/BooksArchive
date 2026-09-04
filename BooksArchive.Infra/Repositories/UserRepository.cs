@@ -1,6 +1,6 @@
 ﻿using BooksArchive.Api.Infra.Database;
+using BooksArchive.Domain.Interfaces;
 using BooksArchive.Domain.Models.Users;
-using BooksArchive.Infra.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 

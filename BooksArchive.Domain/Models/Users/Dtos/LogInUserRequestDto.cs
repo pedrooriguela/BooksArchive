@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace BooksArchive.Api.Dtos;
+namespace BooksArchive.Domain.Models.Users.Dtos;
 
 public class LogInUserRequestDto
 {

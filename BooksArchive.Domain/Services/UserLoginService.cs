@@ -1,10 +1,9 @@
-﻿using BooksArchive.Api.Dtos;
-using BooksArchive.Api.Interfaces;
-using BooksArchive.Domain.Exceptions;
+﻿using BooksArchive.Domain.Exceptions;
+using BooksArchive.Domain.Interfaces;
 using BooksArchive.Domain.Models.Users;
-using BooksArchive.Infra.Interfaces;
+using BooksArchive.Domain.Models.Users.Dtos;
 
-namespace BooksArchive.Api.Services;
+namespace BooksArchive.Domain.Services;
 public class UserLoginService : IUserLoginService
 {
     private readonly IUserRepository _userRepository;

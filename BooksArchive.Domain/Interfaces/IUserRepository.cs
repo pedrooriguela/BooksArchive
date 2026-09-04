@@ -1,9 +1,6 @@
 ﻿using BooksArchive.Domain.Models.Users;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace BooksArchive.Infra.Interfaces;
+namespace BooksArchive.Domain.Interfaces;
 
 public interface IUserRepository
 {

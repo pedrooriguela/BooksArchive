@@ -1,7 +1,7 @@
-﻿using BooksArchive.Api.Dtos;
-using BooksArchive.Domain.Models.Users;
+﻿using BooksArchive.Domain.Models.Users;
+using BooksArchive.Domain.Models.Users.Dtos;
 
-namespace BooksArchive.Api.Interfaces;
+namespace BooksArchive.Domain.Interfaces;
 
 public interface IUserLoginService
 {
