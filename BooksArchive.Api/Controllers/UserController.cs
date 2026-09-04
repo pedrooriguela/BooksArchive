@@ -1,4 +1,6 @@
-﻿using BooksArchive.Domain.Models;
+﻿using BooksArchive.Api.Dtos;
+using BooksArchive.Api.Interfaces;
+using BooksArchive.Domain.Models;
 using BooksArchive.Infra.Interfaces;
 using BooksArchive.Infra.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -9,18 +11,27 @@ namespace BooksArchive.Api.Controllers;
 public class UserController : Controller
 {
     private readonly IUserRepository _userRepository;
+    private readonly IUserLoginService _userLoginService;
 
     public UserController(
-        IUserRepository userRepository)
+        IUserRepository userRepository,
+        IUserLoginService userLoginService)
     {
         _userRepository = userRepository;
+        _userLoginService = userLoginService;
     }
 
-    [HttpPost("api/users/AddUser/{name}/{email}/{password}")]
-    public async Task<IActionResult> AddUserAsync(string name, string email, string password)
+    [HttpPost("api/users/signup")]
+    public async Task<IActionResult> SignUpAsync([FromBody] CreateUserRequestDto createUserRequestDto)
     {
-        var user = Domain.Models.User.Builder.Create(name, email, password);
-        await _userRepository.AddAsync(user);
+        var user = await _userLoginService.CreateAccountAsync(createUserRequestDto);
+        return Ok(user);
+    }
+
+    [HttpGet("api/users/signin")]
+    public IActionResult SignInAsync([FromQuery] LogInUserRequestDto logInUserRequestDto)
+    {
+        var user = _userLoginService.LogIn(logInUserRequestDto);
         return Ok(user);
     }
 }

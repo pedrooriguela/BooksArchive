@@ -2,6 +2,8 @@ using BooksArchive.Api.Infra.Database;
 using BooksArchive.Infra.Repositories;
 using BooksArchive.Infra.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using BooksArchive.Api.Interfaces;
+using BooksArchive.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,7 @@ builder.Services.AddDbContext<BooksArchiveDbContext>(options =>
     options.UseNpgsql(builder.Configuration["PostgresSettings:ConnectionString"]));
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserLoginService, UserLoginService>();
 
 builder.Services.AddCors(options =>
 {

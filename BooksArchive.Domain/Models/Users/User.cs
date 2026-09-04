@@ -1,9 +1,7 @@
 ﻿using BooksArchive.Domain.Common;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel.DataAnnotations;
 
-namespace BooksArchive.Domain.Models;
+namespace BooksArchive.Domain.Models.Users;
 
 public class User : Entity
 {
