@@ -1,7 +1,7 @@
 ﻿using BooksArchive.Domain.Common;
 using System.ComponentModel.DataAnnotations;
 
-namespace BooksArchive.Domain.Models;
+namespace BooksArchive.Domain.Models.Users;
 
 public class User : Entity
 {
@@ -19,7 +19,6 @@ public class User : Entity
 
     public Guid Id { get; set; }
     public string Name { get; set; }
-    [EmailAddress(ErrorMessage = "Insira um email de formato válido")]
     public string Email { get; set; }
     public string Password { get; set; }
 

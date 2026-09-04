@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using  BooksArchive.Domain.Models;
+using BooksArchive.Domain.Models.Users;
 
 namespace BooksArchive.Api.Infra.Database;
 

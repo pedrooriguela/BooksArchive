@@ -1,4 +1,4 @@
-﻿using BooksArchive.Domain.Models;
+﻿using BooksArchive.Domain.Models.Users;
 using System;
 using System.Collections.Generic;
 using System.Text;
