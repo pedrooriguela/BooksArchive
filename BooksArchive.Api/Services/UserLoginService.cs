@@ -1,9 +1,10 @@
-﻿using BooksArchive.Infra.Interfaces;
-using BooksArchive.Domain.Models;
+﻿using BooksArchive.Api.Interfaces;
 using BooksArchive.Domain.Exceptions;
+using BooksArchive.Domain.Models;
+using BooksArchive.Infra.Interfaces;
 
 namespace BooksArchive.Api.Services;
-public class UserLoginService
+public class UserLoginService : IUserLoginService
 {
     private readonly IUserRepository _userRepository;
 
@@ -12,7 +13,7 @@ public class UserLoginService
         _userRepository = userRepository;
     }
 
-    public async Task<User> SignUp(string username, string email, string password)
+    public async Task<User> CreateAccountAsync(string username, string email, string password)
     {
         if (_userRepository.GetByUsername(username) != null || _userRepository.GetByEmail(email) != null)
             throw new UsernameOrEmailAlreadyExistsException();
