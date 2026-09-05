@@ -3,6 +3,7 @@ using BooksArchive.Infra.Repositories;
 using Microsoft.EntityFrameworkCore;
 using BooksArchive.Domain.Services;
 using BooksArchive.Domain.Interfaces;
+using BooksArchive.Infra.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,7 @@ builder.Services.AddDbContext<BooksArchiveDbContext>(options =>
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserLoginService, UserLoginService>();
+builder.Services.AddScoped<IPasswordHasherService, PasswordHasherService>();
 
 builder.Services.AddCors(options =>
 {
