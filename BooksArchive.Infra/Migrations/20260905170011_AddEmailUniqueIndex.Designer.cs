@@ -3,6 +3,7 @@ using System;
 using BooksArchive.Api.Infra.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BooksArchive.Infra.Migrations
 {
     [DbContext(typeof(BooksArchiveDbContext))]
-    partial class BooksArchiveDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260905170011_AddEmailUniqueIndex")]
+    partial class AddEmailUniqueIndex
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
