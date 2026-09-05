@@ -1,7 +1,5 @@
-﻿using BooksArchive.Api.Dtos;
-using BooksArchive.Api.Interfaces;
-using BooksArchive.Domain.Models;
-using BooksArchive.Infra.Interfaces;
+﻿using BooksArchive.Domain.Interfaces;
+using BooksArchive.Domain.Models.Users.Dtos;
 using BooksArchive.Infra.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
