@@ -20,6 +20,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\BooksArchive.Infra\BooksArchive.Infra.csproj" />
+		<ProjectReference Include="..\BooksArchive.Domain\BooksArchive.Domain.csproj" />
 	</ItemGroup>
 
 </Project>
