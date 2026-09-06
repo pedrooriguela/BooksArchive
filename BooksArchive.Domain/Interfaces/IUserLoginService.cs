@@ -5,6 +5,6 @@ namespace BooksArchive.Domain.Interfaces;
 
 public interface IUserLoginService
 {
-    Task<string> CreateAccountAsync(CreateUserRequestDto createUserRequestDto);
+    Task CreateAccountAsync(CreateUserRequestDto createUserRequestDto);
     string LogIn(LogInUserRequestDto logInUserRequestDto);
 }
