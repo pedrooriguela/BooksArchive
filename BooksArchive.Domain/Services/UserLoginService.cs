@@ -8,19 +8,25 @@ public class UserLoginService : IUserLoginService
 {
     private readonly IUserRepository _userRepository;
     private readonly IPasswordHasherService _passwordHasherService;
+    private readonly IJwtService _jwtService;
 
     public UserLoginService(
         IUserRepository userRepository,
-        IPasswordHasherService passwordHasherService)
+        IPasswordHasherService passwordHasherService,
+        IJwtService jwtService)
     {
         _userRepository = userRepository;
         _passwordHasherService = passwordHasherService;
+        _jwtService = jwtService;
     }
 
-    public async Task<User> CreateAccountAsync(CreateUserRequestDto createUserRequestDto)
+    public async Task CreateAccountAsync(CreateUserRequestDto createUserRequestDto)
     {
-        if (_userRepository.GetByUsername(createUserRequestDto.Name) != null || _userRepository.GetByEmail(createUserRequestDto.Email) != null)
+        if (_userRepository.GetByUsername(createUserRequestDto.Name) != null)
             throw new UsernameAlreadyInUseException();
+
+        if (_userRepository.GetByEmail(createUserRequestDto.Email) != null)
+            throw new EmailAlreadyInUseException();
 
         var newUser = User.Builder.Create(createUserRequestDto.Name, createUserRequestDto.Email);
 
@@ -29,10 +35,9 @@ public class UserLoginService : IUserLoginService
         newUser.SetPassword(hashedPassword);
 
         await _userRepository.AddAsync(newUser);
-        return newUser;
     }
 
-    public User LogIn(LogInUserRequestDto logInUserRequestDto)
+    public string LogIn(LogInUserRequestDto logInUserRequestDto)
     {
         var user = _userRepository.GetByUsername(logInUserRequestDto.Name);
 
@@ -42,7 +47,7 @@ public class UserLoginService : IUserLoginService
         if(!_passwordHasherService.Compare(user, user.Password, logInUserRequestDto.Password))
             throw new WrongUsernameOrPasswordException();
 
-        return user;
+        return _jwtService.GenerateToken(user);
     }
 
 }

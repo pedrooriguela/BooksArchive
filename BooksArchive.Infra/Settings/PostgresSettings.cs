@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BooksArchive.Infra.Database.Settings;
+namespace BooksArchive.Infra.Settings;
 
 public class PostgresSettings
 {

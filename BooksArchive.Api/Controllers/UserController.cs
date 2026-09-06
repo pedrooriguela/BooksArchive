@@ -1,4 +1,5 @@
-﻿using BooksArchive.Domain.Interfaces;
+﻿using BooksArchive.Domain.Exceptions;
+using BooksArchive.Domain.Interfaces;
 using BooksArchive.Domain.Models.Users.Dtos;
 using BooksArchive.Infra.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -20,16 +21,35 @@ public class UserController : Controller
     }
 
     [HttpPost("api/users/signup")]
-    public async Task<IActionResult> SignUpAsync([FromBody] CreateUserRequestDto createUserRequestDto)
+    public async Task<IActionResult> SignUpAsync([FromBody] CreateUserRequestDto request)
     {
-        var user = await _userLoginService.CreateAccountAsync(createUserRequestDto);
-        return Ok(user);
+        try
+        {
+        await _userLoginService.CreateAccountAsync(request);
+        return Ok();
+        }
+        catch (UsernameAlreadyInUseException ex)
+        {
+            return Conflict(new { field = "username", message = ex.Message });
+        }
+        catch (EmailAlreadyInUseException ex)
+        {
+            return Conflict(new { field = "email", message = ex.Message });
+        }
     }
 
     [HttpGet("api/users/signin")]
-    public IActionResult SignInAsync([FromQuery] LogInUserRequestDto logInUserRequestDto)
+    public IActionResult SignInAsync([FromQuery] LogInUserRequestDto request)
     {
-        var user = _userLoginService.LogIn(logInUserRequestDto);
-        return Ok(user);
+        try
+        {
+            var token = _userLoginService.LogIn(request);
+            return Ok(new { token });
+        }
+        catch ( WrongUsernameOrPasswordException ex)
+        {
+            return Unauthorized(new { message = ex.Message });
+            
+        }
     }
 }
