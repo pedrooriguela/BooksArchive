@@ -8,13 +8,16 @@ public class UserLoginService : IUserLoginService
 {
     private readonly IUserRepository _userRepository;
     private readonly IPasswordHasherService _passwordHasherService;
+    private readonly IJwtService _jwtService;
 
     public UserLoginService(
         IUserRepository userRepository,
-        IPasswordHasherService passwordHasherService)
+        IPasswordHasherService passwordHasherService,
+        IJwtService jwtService)
     {
         _userRepository = userRepository;
         _passwordHasherService = passwordHasherService;
+        _jwtService = jwtService;
     }
 
     public async Task<User> CreateAccountAsync(CreateUserRequestDto createUserRequestDto)
@@ -32,7 +35,7 @@ public class UserLoginService : IUserLoginService
         return newUser;
     }
 
-    public User LogIn(LogInUserRequestDto logInUserRequestDto)
+    public string LogIn(LogInUserRequestDto logInUserRequestDto)
     {
         var user = _userRepository.GetByUsername(logInUserRequestDto.Name);
 
@@ -42,7 +45,7 @@ public class UserLoginService : IUserLoginService
         if(!_passwordHasherService.Compare(user, user.Password, logInUserRequestDto.Password))
             throw new WrongUsernameOrPasswordException();
 
-        return user;
+        return _jwtService.GenerateToken(user);
     }
 
 }

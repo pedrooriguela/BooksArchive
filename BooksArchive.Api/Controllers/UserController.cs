@@ -1,4 +1,5 @@
-﻿using BooksArchive.Domain.Interfaces;
+﻿using BooksArchive.Domain.Exceptions;
+using BooksArchive.Domain.Interfaces;
 using BooksArchive.Domain.Models.Users.Dtos;
 using BooksArchive.Infra.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -27,9 +28,17 @@ public class UserController : Controller
     }
 
     [HttpGet("api/users/signin")]
-    public IActionResult SignInAsync([FromQuery] LogInUserRequestDto logInUserRequestDto)
+    public IActionResult SignInAsync([FromQuery] LogInUserRequestDto request)
     {
-        var user = _userLoginService.LogIn(logInUserRequestDto);
-        return Ok(user);
+        try
+        {
+            var token = _userLoginService.LogIn(request);
+            return Ok(new { token });
+        }
+        catch ( WrongUsernameOrPasswordException ex)
+        {
+            return Unauthorized(new { message = ex.Message });
+        }
+        
     }
 }
