@@ -20,10 +20,13 @@ public class UserLoginService : IUserLoginService
         _jwtService = jwtService;
     }
 
-    public async Task<User> CreateAccountAsync(CreateUserRequestDto createUserRequestDto)
+    public async Task<string> CreateAccountAsync(CreateUserRequestDto createUserRequestDto)
     {
-        if (_userRepository.GetByUsername(createUserRequestDto.Name) != null || _userRepository.GetByEmail(createUserRequestDto.Email) != null)
+        if (_userRepository.GetByUsername(createUserRequestDto.Name) != null)
             throw new UsernameAlreadyInUseException();
+
+        if (_userRepository.GetByEmail(createUserRequestDto.Email) != null)
+            throw new EmailAlreadyInUseException();
 
         var newUser = User.Builder.Create(createUserRequestDto.Name, createUserRequestDto.Email);
 
@@ -32,7 +35,7 @@ public class UserLoginService : IUserLoginService
         newUser.SetPassword(hashedPassword);
 
         await _userRepository.AddAsync(newUser);
-        return newUser;
+        return _jwtService.GenerateToken(newUser);
     }
 
     public string LogIn(LogInUserRequestDto logInUserRequestDto)
