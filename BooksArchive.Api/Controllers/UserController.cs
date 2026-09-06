@@ -25,8 +25,8 @@ public class UserController : Controller
     {
         try
         {
-        var token = await _userLoginService.CreateAccountAsync(request);
-        return Ok(new { token });
+        await _userLoginService.CreateAccountAsync(request);
+        return Ok();
         }
         catch (UsernameAlreadyInUseException ex)
         {
@@ -51,6 +51,5 @@ public class UserController : Controller
             return Unauthorized(new { message = ex.Message });
             
         }
-        
     }
 }

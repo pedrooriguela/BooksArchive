@@ -20,7 +20,7 @@ public class UserLoginService : IUserLoginService
         _jwtService = jwtService;
     }
 
-    public async Task<string> CreateAccountAsync(CreateUserRequestDto createUserRequestDto)
+    public async Task CreateAccountAsync(CreateUserRequestDto createUserRequestDto)
     {
         if (_userRepository.GetByUsername(createUserRequestDto.Name) != null)
             throw new UsernameAlreadyInUseException();
@@ -35,7 +35,6 @@ public class UserLoginService : IUserLoginService
         newUser.SetPassword(hashedPassword);
 
         await _userRepository.AddAsync(newUser);
-        return _jwtService.GenerateToken(newUser);
     }
 
     public string LogIn(LogInUserRequestDto logInUserRequestDto)
