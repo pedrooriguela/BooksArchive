@@ -4,11 +4,34 @@ using Microsoft.EntityFrameworkCore;
 using BooksArchive.Domain.Services;
 using BooksArchive.Domain.Interfaces;
 using BooksArchive.Infra.Services;
+using BooksArchive.Infra.Settings;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>()!;
+var postgresSettings = builder.Configuration.GetSection("PostgresSettings").Get<PostgresSettings>()!;
+
 builder.Services.AddDbContext<BooksArchiveDbContext>(options =>
-    options.UseNpgsql(builder.Configuration["PostgresSettings:ConnectionString"]));
+    options.UseNpgsql(postgresSettings.ConnectionString));
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = jwtSettings.Issuer,
+            ValidAudience = jwtSettings.Audience,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
+        };
+    });
+
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserLoginService, UserLoginService>();
@@ -23,6 +46,7 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod());
 });
 
+builder.Services.AddAuthorization();
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();          
 
@@ -38,6 +62,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("AllowFrontend");
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
