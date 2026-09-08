@@ -1,6 +1,7 @@
 using BooksArchive.Api.Infra.Database;
 using BooksArchive.Domain.Interfaces;
 using BooksArchive.Domain.Models.Books;
+using BooksArchive.Domain.Models.Books.Dtos;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -15,8 +16,9 @@ public class BookRepository : IBookRepository
         _dbContext = dbContext;
     }
 
-    public async Task AddAsync(Book book)
+    public async Task AddAsync(BookCreationRequestDto newBook)
     {
+        var book = new Book(newBook.Title, newBook.Author, newBook.Subject, newBook.Key, Guid.NewGuid());
         await _dbContext.AddAsync(book);
         await _dbContext.SaveChangesAsync();
     }
@@ -49,22 +51,28 @@ public class BookRepository : IBookRepository
         var book = await _dbContext.Books.FindAsync(id);
         return book;
     }
-    
-    public async Task<List<Book>> GetByTitleAsync(string title)
-    {
-        var booksList = await _dbContext.Books.Where(p => p.Title == title).ToListAsync();
-        return booksList;
-    }
 
-    public async Task<List<Book>> GetByAuthorAsync(string author)
+    public async Task<List<Book>> SearchBooksAsync(BookSearchRequestDto request)
     {
-        var booksList = await _dbContext.Books.Where(p => p.Author == author).ToListAsync();
-        return booksList;
-    }
-    
-    public async Task<List<Book>> GetByGenreAsync(string genre)
-    {
-        var booksList = await _dbContext.Books.Where(p => p.Genre == genre).ToListAsync();
+        var query = _dbContext.Books.AsQueryable();
+        
+        if (!string.IsNullOrWhiteSpace(request.Title))
+        {
+            query = query.Where(b => b.Title.Contains(request.Title));
+        }
+
+        if (!string.IsNullOrWhiteSpace(request.Author))
+        {
+            query = query.Where(b => b.Author.Contains(request.Author));
+        }
+
+        if (!string.IsNullOrWhiteSpace(request.Subject))
+        {
+            query = query.Where(b => b.Subject == request.Subject);
+        }
+        
+        var booksList = await query.ToListAsync();
+
         return booksList;
     }
 }
