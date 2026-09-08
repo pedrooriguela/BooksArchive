@@ -11,13 +11,16 @@ public class UserController : Controller
 {
     private readonly IUserRepository _userRepository;
     private readonly IUserLoginService _userLoginService;
+    private readonly IOpenLibraryConsumer _openLibraryConsumer;
 
     public UserController(
         IUserRepository userRepository,
-        IUserLoginService userLoginService)
+        IUserLoginService userLoginService,
+        IOpenLibraryConsumer openLibraryConsumer)
     {
         _userRepository = userRepository;
         _userLoginService = userLoginService;
+        _openLibraryConsumer = openLibraryConsumer;
     }
 
     [HttpPost("api/users/signup")]
@@ -49,7 +52,6 @@ public class UserController : Controller
         catch ( WrongUsernameOrPasswordException ex)
         {
             return Unauthorized(new { message = ex.Message });
-            
         }
     }
 }
