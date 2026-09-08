@@ -11,13 +11,16 @@ public class UserController : Controller
 {
     private readonly IUserRepository _userRepository;
     private readonly IUserLoginService _userLoginService;
+    private readonly IOpenLibraryConsumer _openLibraryConsumer;
 
     public UserController(
         IUserRepository userRepository,
-        IUserLoginService userLoginService)
+        IUserLoginService userLoginService,
+        IOpenLibraryConsumer openLibraryConsumer)
     {
         _userRepository = userRepository;
         _userLoginService = userLoginService;
+        _openLibraryConsumer = openLibraryConsumer;
     }
 
     [HttpPost("api/users/signup")]
@@ -51,5 +54,12 @@ public class UserController : Controller
             return Unauthorized(new { message = ex.Message });
             
         }
+    }
+
+    [HttpGet("api/users/teste")]
+    public async Task<IActionResult> TesteApiAsync([FromQuery] string tituloLivro)
+    {
+        await _openLibraryConsumer.GetBook(tituloLivro);
+        return Ok(tituloLivro);
     }
 }
