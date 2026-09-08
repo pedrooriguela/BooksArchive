@@ -54,14 +54,4 @@ public class UserController : Controller
             return Unauthorized(new { message = ex.Message });
         }
     }
-
-    [HttpGet("api/users/teste")]
-    public async Task<IActionResult> TesteApiAsync([FromQuery] string tituloLivro)
-    {
-        var response = await _openLibraryConsumer.GetBook(tituloLivro);
-        response.EnsureSuccessStatusCode();
-
-        var json = await response.Content.ReadAsStringAsync();
-        return Ok(json);
-    }
 }
