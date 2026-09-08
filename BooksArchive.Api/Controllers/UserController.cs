@@ -52,14 +52,16 @@ public class UserController : Controller
         catch ( WrongUsernameOrPasswordException ex)
         {
             return Unauthorized(new { message = ex.Message });
-            
         }
     }
 
     [HttpGet("api/users/teste")]
     public async Task<IActionResult> TesteApiAsync([FromQuery] string tituloLivro)
     {
-        await _openLibraryConsumer.GetBook(tituloLivro);
-        return Ok(tituloLivro);
+        var response = await _openLibraryConsumer.GetBook(tituloLivro);
+        response.EnsureSuccessStatusCode();
+
+        var json = await response.Content.ReadAsStringAsync();
+        return Ok(json);
     }
 }

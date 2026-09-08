@@ -38,8 +38,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserLoginService, UserLoginService>();
 builder.Services.AddScoped<IPasswordHasherService, PasswordHasherService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
-builder.Services.AddScoped<IOpenLibraryConsumer, OpenLibraryConsumer>();
-
+builder.Services.AddHttpClient<IOpenLibraryConsumer, OpenLibraryConsumer>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>

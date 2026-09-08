@@ -19,7 +19,7 @@ public class OpenLibraryConsumer : IOpenLibraryConsumer
 
     public async Task<HttpResponseMessage> GetBook(string name)
     {
-        return await _httpClient.GetAsync($"{_openLibraryApiSettings.BaseUrl}/{name}");
+        return await _httpClient.GetAsync($"{_openLibraryApiSettings.BaseUrl}/search.json?title={name}");
     }
 
 }
