@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.IdentityModel.Tokens.Jwt;
-using BooksArchive.Domain.Interfaces;
-
 using System.Security.Claims;
+using System.Text;
+using BooksArchive.Domain.Interfaces;
 using BooksArchive.Domain.Models.Users;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.Extensions.Configuration;
 using BooksArchive.Infra.Settings;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 
 namespace BooksArchive.Infra.Services;
 
