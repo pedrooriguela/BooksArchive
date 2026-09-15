@@ -31,9 +31,9 @@ dotnet user-secrets set "PostgresSettings:ConnectionString" "Host=localhost;Port
 ```
 e rodar também
 ```bash
-dotnet user-secrets set "Jwt:Key" "K7x9mP2vL8qR4wT6yU1zA3bC5dE8fG0hJ2kM4nO6pQ8sV1xW3zY5cB7dF9gH1jL=" 
-dotnet user-secrets set "Jwt:Issuer" "BooksArchive" 
-dotnet user-secrets set "Jwt:Audience" "BooksArchive"
+dotnet user-secrets set "JwtSettings:Key" "K7x9mP2vL8qR4wT6yU1zA3bC5dE8fG0hJ2kM4nO6pQ8sV1xW3zY5cB7dF9gH1jL=" 
+dotnet user-secrets set "JwtSettings:Issuer" "BooksArchive" 
+dotnet user-secrets set "JwtSettings:Audience" "BooksArchive"
 ```
 
 Troque `SUA_SENHA_AQUI` pela senha do seu usuário `postgres` local.
