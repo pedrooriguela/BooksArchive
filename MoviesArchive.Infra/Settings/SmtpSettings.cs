@@ -1,4 +1,4 @@
-namespace BooksArchive.Infra.Settings;
+namespace MoviesArchive.Infra.Settings;
 
 public class SmtpSettings
 {

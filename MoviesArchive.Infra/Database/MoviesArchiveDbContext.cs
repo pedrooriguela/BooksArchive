@@ -1,19 +1,15 @@
 ﻿using MoviesArchive.Domain.Models.Users;
-using MoviesArchive.Domain.Models.Books;
 using Microsoft.EntityFrameworkCore;
 
-namespace BooksArchive.Api.Infra.Database;
+namespace MoviesArchive.Infra.Database;
 
-public class BooksArchiveDbContext : DbContext
+public class MoviesArchiveDbContext : DbContext
 {
-    public BooksArchiveDbContext(
-        DbContextOptions<BooksArchiveDbContext> options
+    public MoviesArchiveDbContext(
+        DbContextOptions<MoviesArchiveDbContext> options
         ) : base(options) { }
 
     public DbSet<User> Users => Set<User>();
-    
-    public DbSet<Book> Books => Set<Book>();
-
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

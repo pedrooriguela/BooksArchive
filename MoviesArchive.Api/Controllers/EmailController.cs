@@ -3,7 +3,7 @@ using MoviesArchive.Domain.Interfaces;
 using MoviesArchive.Domain.Models.Users.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BooksArchive.Api.Controllers;
+namespace MoviesArchive.Api.Controllers;
 [ApiController]
 public class EmailController : Controller
 {

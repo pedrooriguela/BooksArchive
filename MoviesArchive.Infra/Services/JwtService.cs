@@ -5,11 +5,11 @@ using System.Security.Claims;
 using System.Text;
 using MoviesArchive.Domain.Interfaces;
 using MoviesArchive.Domain.Models.Users;
-using BooksArchive.Infra.Settings;
+using MoviesArchive.Infra.Settings;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace BooksArchive.Infra.Services;
+namespace MoviesArchive.Infra.Services;
 
 public class JwtService : IJwtService
 {

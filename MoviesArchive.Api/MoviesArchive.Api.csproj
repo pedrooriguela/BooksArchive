@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>4b6bd800-7fed-457c-aa70-26fb10a52074</UserSecretsId>
-    <RootNamespace>BooksArchive.Api</RootNamespace>
+    <RootNamespace>MoviesArchive.Api</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
