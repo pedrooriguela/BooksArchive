@@ -1,16 +1,16 @@
-﻿using BooksArchive.Api.Infra.Database;
+﻿using MoviesArchive.Infra.Database;
 using MoviesArchive.Domain.Interfaces;
 using MoviesArchive.Domain.Models.Users;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace BooksArchive.Infra.Repositories;
+namespace MoviesArchive.Infra.Repositories;
 
 public class UserRepository : IUserRepository
 {
-    private readonly BooksArchiveDbContext _dbContext;
+    private readonly MoviesArchiveDbContext _dbContext;
     public UserRepository(
-        BooksArchiveDbContext dbContext)
+        MoviesArchiveDbContext dbContext)
     {
         _dbContext = dbContext;
     }

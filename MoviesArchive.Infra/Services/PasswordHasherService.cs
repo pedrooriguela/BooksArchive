@@ -2,7 +2,7 @@
 using MoviesArchive.Domain.Models.Users;
 using Microsoft.AspNetCore.Identity;
 
-namespace BooksArchive.Infra.Services;
+namespace MoviesArchive.Infra.Services;
 
 public class PasswordHasherService : IPasswordHasherService
 {

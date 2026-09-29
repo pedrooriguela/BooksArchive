@@ -1,10 +1,10 @@
 ﻿using MoviesArchive.Domain.Exceptions;
 using MoviesArchive.Domain.Interfaces;
 using MoviesArchive.Domain.Models.Users.Dtos;
-using BooksArchive.Infra.Repositories;
+using MoviesArchive.Infra.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BooksArchive.Api.Controllers;
+namespace MoviesArchive.Api.Controllers;
 
 [ApiController]
 public class UserController : Controller

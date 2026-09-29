@@ -2,11 +2,11 @@ using MoviesArchive.Domain.Interfaces;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using MimeKit;
-using BooksArchive.Infra.Settings;
+using MoviesArchive.Infra.Settings;
 using MailKit;
 using Microsoft.Extensions.Configuration;
 
-namespace BooksArchive.Infra.Services;
+namespace MoviesArchive.Infra.Services;
 
 public class EmailService : IEmailService
 {

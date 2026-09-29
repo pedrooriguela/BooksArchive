@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection.Metadata;
 using System.Text;
 
-namespace BooksArchive.Infra.Settings;
+namespace MoviesArchive.Infra.Settings;
 
 public class JwtSettings
 {
